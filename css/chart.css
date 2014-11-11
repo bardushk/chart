@@ -1,0 +1,46 @@
+﻿.chart{
+	position: absolute;
+	top: 50px; 
+	left: 50px;
+	right: 50px;
+	bottom: 50px;
+}
+.node{
+	width: 150px;
+	height: 50px;
+	border: solid 2px #ccc;
+	background: #eee;
+	position: absolute;
+	cursor: pointer;
+}
+.nodeContent{
+	padding: 3px;
+	text-align: center;	
+}
+.line{
+	background-color: #ccc;
+	position: absolute;
+	cursor: pointer;
+}
+.horizontalSegment{
+	width: 200px;
+	height: 2px;
+}
+.verticalSegment{
+	width: 2px;
+	height: 200px;
+}
+.glif{
+	position: absolute;
+	width: 16px;
+	height: 16px;
+}
+.chartTest {
+    width: 200px;
+    height: 50px;
+    border: solid 2px #CD0000;
+    padding-top: 10px;
+    text-align: center;
+    cursor: pointer;
+    background: #efefef;
+}
