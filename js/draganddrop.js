@@ -1,5 +1,5 @@
 ﻿//
-// Перетаскивание плиток в режиме редактирования
+// Перетаскивание
 //
 var dragMaster = (function () {
     var dragObject = null,      // Перетаскиваемый объект
@@ -15,7 +15,6 @@ var dragMaster = (function () {
     }
 
     function mouseDown(e) {
-        alert('mouseDown');
         e = fixEvent(e);
         if (e.which != 1) return;
         mouseDownAt = { x: e.pageX, y: e.pageY, dragObject: this }
@@ -60,7 +59,7 @@ var dragMaster = (function () {
                 return;
             }
 
-            dragObject = $(mouseDownAt.dragObject).parent();
+            dragObject = $(mouseDownAt.dragObject);
             dragObject.addClass('selectedTile');
             mouseDownAt = null;
         }
@@ -88,7 +87,6 @@ var dragMaster = (function () {
 
         if (dragObject) {
             dragObject.removeClass('selectedTile');
-            dragObject.fadeOut();
             $('.edit').parent().each(
                 function () {
                     if (
@@ -105,7 +103,6 @@ var dragMaster = (function () {
                     }
                 });
 
-            Callback();
             dragObject = null
             document.onmousemove = null
             document.onmouseup = null
@@ -121,13 +118,12 @@ var dragMaster = (function () {
         },
 
         makeDraggable: function (element) {
-            $('body').on('click', '.chartTest', function () { alert('chartTest'); });
+            $('body').on('mousedown', element, mouseDown);
         }
     }
 }());
 
-dragMaster.init();
-dragMaster.makeDraggable('.node');
+
 
 function SwapZones(zoneAOrderNo, zoneBOrderNo, workspaceNo) {
 }

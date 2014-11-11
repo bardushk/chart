@@ -25,4 +25,6 @@
 
 $(document).ready(function () {
     createElements($('.chart'), elementList);
+    dragMaster.init();
+    dragMaster.makeDraggable('.node');
 });
