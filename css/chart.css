@@ -1,4 +1,14 @@
-﻿.chart{
+﻿body {
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 13px;
+    color: #666;
+}
+h1 {
+    font-weight: normal;
+    font-size: 1em;
+    color: #333;
+}
+.chart{
 	position: absolute;
 	top: 0px; 
 	left: 0px;
@@ -8,8 +18,8 @@
 .node{
 	width: 150px;
 	height: 50px;
-	border: solid 2px #ccc;
 	background: #eee;
+    border: solid 1px #666;
 	position: absolute;
 	cursor: pointer;
 }
@@ -18,7 +28,7 @@
 	text-align: center;	
 }
 .line{
-	background-color: #ccc;
+	background-color: #666;
 	position: absolute;
 	cursor: pointer;
 }
@@ -27,7 +37,7 @@
 	height: 2px;
 }
 .verticalSegment{
-	width: 2px;
+	width: 1px;
 	height: 200px;
 }
 .glif{
@@ -35,12 +45,24 @@
 	width: 16px;
 	height: 16px;
 }
-.chartTest {
+.selected {
+    z-index: 9000;
+    -moz-box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px;
+}
+.group {
+    position: absolute;
+}
+#elementList {
+    position: absolute;
+    right: 10px;
     width: 200px;
-    height: 50px;
-    border: solid 2px #CD0000;
-    padding-top: 10px;
-    text-align: center;
-    cursor: pointer;
+    top: 10px;
+    bottom: 10px;
+    overflow: auto;
+    border: solid 1px #666;
+    padding: 3px;
+    z-index: 8000;
     background: #efefef;
 }

@@ -42,7 +42,6 @@ var dragMaster = (function () {
                     && e.pageX < $(this).position().left + $(this).width()
                     && e.pageY > $(this).position().top
                     && e.pageY < $(this).position().top + $(this).height()
-                    && dragObject.attr('zone') !== $(this).attr('zone')
                     ) {
                     // Нашли зону для бросания
                     dropTarget = $(this).attr('zone');
@@ -60,7 +59,7 @@ var dragMaster = (function () {
             }
 
             dragObject = $(mouseDownAt.dragObject);
-            dragObject.addClass('selectedTile');
+            dragObject.addClass('selected');
             mouseDownAt = null;
         }
 
@@ -70,13 +69,13 @@ var dragMaster = (function () {
 
         var newTarget = getCurrentTarget(e);
         if (currentDropTarget && currentDropTarget !== newTarget) {
-            $('.edit').parent('[zone=' + currentDropTarget + ']').removeClass('dropZone');
+  //          $('.edit').parent('[zone=' + currentDropTarget + ']').removeClass('dropZone');
         }
 
         currentDropTarget = newTarget;
 
         if (newTarget) {
-            $('.edit').parent('[zone=' + currentDropTarget + ']').addClass('dropZone');
+//            $('.edit').parent('[zone=' + currentDropTarget + ']').addClass('dropZone');
         }
 
         return false;
@@ -86,22 +85,19 @@ var dragMaster = (function () {
         mouseDownAt = null;
 
         if (dragObject) {
-            dragObject.removeClass('selectedTile');
-            $('.edit').parent().each(
-                function () {
-                    if (
-                        e.pageX > $(this).position().left
-                        && e.pageX < $(this).position().left + $(this).width()
-                        && e.pageY > $(this).position().top
-                        && e.pageY < $(this).position().top + $(this).height()
-                        && dragObject.attr('zone') !== $(this).attr('zone')
-                        ) {
-                        // Нашли куда бросить панель
-                        changePosition = true;
-                        $(this).fadeOut();
-                        SwapZones(dragObject.attr('zone'), $(this).attr('zone'), $(this).attr("workspaceNo"));
-                    }
-                });
+            dragObject.removeClass('selected');
+            //$('.edit').parent().each(
+            //    function () {
+            //        if (
+            //            e.pageX > $(this).position().left
+            //            && e.pageX < $(this).position().left + $(this).width()
+            //            && e.pageY > $(this).position().top
+            //            && e.pageY < $(this).position().top + $(this).height()
+            //            && dragObject.attr('zone') !== $(this).attr('zone')
+            //            ) {
+            //            changePosition = true;
+            //        }
+            //    });
 
             dragObject = null
             document.onmousemove = null
@@ -116,17 +112,12 @@ var dragMaster = (function () {
             document.onmousemove = mouseMove;
             document.onmouseup = mouseUp;
         },
-
         makeDraggable: function (element) {
             $('body').on('mousedown', element, mouseDown);
         }
     }
 }());
 
-
-
-function SwapZones(zoneAOrderNo, zoneBOrderNo, workspaceNo) {
-}
 
 function fixEvent(e) {
     // получить объект событие для IE

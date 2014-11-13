@@ -1,30 +1,38 @@
-﻿var elementList = [
-	new Line([
-        new VerticalSegment('175px', '150px', '25px'),
-        new HorizontalSegment('175px', '175px', '100px'),
-        new VerticalSegment('275px', '175px', '30px')
-	]),
-	new VerticalSegment('275px', '250px', '30px'),
-	new VerticalSegment('275px', '325px', '30px'),
-	new VerticalSegment('275px', '400px', '30px'),
-	new HorizontalSegment('350px', '450px', '30px'),
+﻿/// <reference path="../js/units.js"/>
+/// <reference path="../js/chart.js"/>
+/// <reference path="../js/jquery-1.11.1.min.js"/>
 
-	new Node('СИКН', '100px', '100px'),
-	new Node('УПВСН', '0', '200px'),
-	new Node('ДНС А', '200px', '200px'),
-	new Node('ДНС Б', '200px', '275px'),
-	new Node('ДНС В', '200px', '350px'),
-	new Node('ДНС Г', '200px', '425px'),
-	new Node('ДНС Д', '375px', '425px'),
+var elementList = [
+	new Line({
+	    begin: new Point(175, 150),
+	    segments: [
+            new VerticalSegment(0, 0, 25),
+            new HorizontalSegment(0, 25, 100),
+            new VerticalSegment(100, 25, 30)
+	        ]
+	    }
+    ),
+	new VerticalSegment(275, 250, 30),
+	new VerticalSegment(275, 325, 30),
+	new VerticalSegment(275, 400, 30),
+	new HorizontalSegment(350, 450, 30),
 
-	new Glif('268px', '330px', 'up.png'),
-	new Glif('268px', '408px', 'down.png'),
-	new Glif('358px', '443px', 'right.png'),
+	new Node('СИКН', 100, 100),
+	new Node('УПВСН', 0, 200),
+	new Node('ДНС А', 200, 200),
+	new Node('ДНС Б', 200, 275),
+	new Node('ДНС В', 200, 350),
+	new Node('ДНС Г', 200, 425),
+	new Node('ДНС Д', 375, 425),
+
+	new Glif(268, 330, 'up.png'),
+	new Glif(268, 408, 'down.png'),
+	new Glif(358, 443, 'right.png'),
 ];
 
 
 $(document).ready(function () {
     createElements($('.chart'), elementList);
     dragMaster.init();
-    dragMaster.makeDraggable('.node');
+    dragMaster.makeDraggable('.element');
 });
