@@ -31,7 +31,7 @@ function Node(text, left, top){
 	return {
 		render: function(chart){
 		    chart.append('<div id = "' + _id +'" class = "element node" style="left: ' + _left + 'px; top: ' + _top + 'px;"><div class = "nodeContent">' + _text + '</div></div>');
-		    $('#elementList').append('<div>Node: ' + _id + ' ' + _text + '</div>');
+		    $('#elementList').append('<div id="elementList' + _id + '" class="elementList">Node: ' + _id + ' ' + _text + '</div>');
 		}
 	} 
 }
@@ -101,7 +101,7 @@ function Glif(left, top, image) {
     return {
         render: function (chart) {
             chart.append('<div id = "' + _id + '" class = "element glif" style="left: ' + _left + 'px; top: ' + _top + 'px; background-image: url(images/' + _image + ')"></div>');
-            $('#elementList').append('<div>Glif: ' +_id + ' ' + _image + '</div>');
+            $('#elementList').append('<div id="elementList' + _id + '" class="elementList">Glif: ' +_id + ' ' + _image + '</div>');
         }
     }
 }
@@ -127,7 +127,7 @@ function Line(params) {
 	return {
 	    render: function (chart) {
 	        var _groupId = _group.render(chart);
-	        $('#elementList').append('<div>Line: ' + _id + '</div>');
+	        $('#elementList').append('<div id="elementList' + _id + '" class="elementList">Line: ' + _id + '</div>');
 	        for (var index in _segments) {
 			    var segment = _segments[index];
 			    segment.render($('#' + _groupId));

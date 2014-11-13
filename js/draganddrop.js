@@ -18,7 +18,8 @@ var dragMaster = (function () {
         e = fixEvent(e);
         if (e.which != 1) return;
         mouseDownAt = { x: e.pageX, y: e.pageY, dragObject: this }
-
+		var id = $(this).attr('id');
+		$('#elementList' + id).addClass('selected');
         // получить сдвиг элемента относительно курсора мыши
         mouseOffset = getMouseOffset(this, e);
         document.onmousemove = mouseMove;
@@ -83,8 +84,9 @@ var dragMaster = (function () {
 
     function mouseUp(e) {
         mouseDownAt = null;
-
+		$('.elementList').removeClass('selected');
         if (dragObject) {
+			var id = dragObject.attr('id');
             dragObject.removeClass('selected');
             //$('.edit').parent().each(
             //    function () {
