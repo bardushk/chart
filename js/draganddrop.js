@@ -61,11 +61,15 @@ var dragMaster = (function () {
 
             dragObject = $(mouseDownAt.dragObject);
             dragObject.addClass('selected');
+
             mouseDownAt = null;
         }
 
         if (dragObject) {
-            dragObject.css({ position: 'absolute', top: e.pageY - mouseOffset.y + 'px', left: e.pageX - mouseOffset.x + 'px' });           
+            var id = dragObject.attr('id');
+            dragObject.css({ position: 'absolute', top: e.pageY - mouseOffset.y + 'px', left: e.pageX - mouseOffset.x + 'px' });
+            console.log('(' + (e.pageX - mouseOffset.x) + ', ' + (e.pageY - mouseOffset.y) + ')', mouseDownAt);
+
         }
 
         var newTarget = getCurrentTarget(e);
@@ -100,6 +104,7 @@ var dragMaster = (function () {
             //            changePosition = true;
             //        }
             //    });
+
 
             dragObject = null
             document.onmousemove = null

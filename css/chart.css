@@ -40,7 +40,7 @@ h1 {
 	width: 1px;
 	height: 200px;
 }
-.glif{
+.glyph{
 	position: absolute;
 	width: 16px;
 	height: 16px;
@@ -65,4 +65,28 @@ h1 {
     padding: 3px;
     z-index: 8000;
     background: #efefef;
+}
+#tools {
+    position: absolute;
+    right: 220px;
+    width: 100px;
+    top: 10px;
+    height: 200px;
+    border: solid 1px #666;
+}
+.button {
+    text-align: center;
+    margin: 10px;
+    padding: 5px;
+    color: #fff;
+    background: #ccc;
+    cursor: pointer;
+}
+.point {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: solid 1px #666;
+    cursor: pointer;
+    background: #fff;
 }

@@ -1,6 +1,7 @@
 ﻿/// <reference path="../js/units.js"/>
 /// <reference path="../js/chart.js"/>
 /// <reference path="../js/jquery-1.11.1.min.js"/>
+/// <reference path="../js/line.js"/>
 
 function testLoadjQuery() {
     var _passed = !(typeof $ === 'undefined');
@@ -146,6 +147,17 @@ function testCounter() {
     return { message: 'Тестирование нумератора объектов: ' + _idString + ', ' + _idNextString, passed: _passed };
 }
 
+//
+// Тестирование генерацию сегментов
+//
+function testGenerateSegmnents() {
+    var message = 'Тестирование генерацию сегментов',
+        line = new Line({ begin: new Point(50, 10), end: new Point(10, 100) }),
+        passed = line.toString() === '(40,0) - (40,45)(0,45) - (40,45)(0,45) - (0,90)';
+    
+    return { message: message + ' ' + line.toString(), passed: passed };
+}
+
 $(document).ready(function () {
     log($('.log'), testLoadjQuery());
     log($('.log'), testUnitAddPixels());
@@ -159,6 +171,7 @@ $(document).ready(function () {
     log($('.log'), testLine());
     log($('.log'), testLineGetRegion());
     log($('.log'), testCounter());
+    log($('.log'), testGenerateSegmnents());
 });
 
 function log(log, test) {

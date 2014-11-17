@@ -1,7 +1,9 @@
 ﻿/// <reference path="../js/units.js"/>
 /// <reference path="../js/jquery-1.11.1.min.js"/>
 
-
+//
+// Счетчик объектов
+//
 var counter = (function () {
     var _count = 0;
     return {
@@ -21,17 +23,40 @@ var counter = (function () {
 })();
 
 //
-// Блоки
+// Прямоугольники
+// параметры: {
+//     text - содержимое прямоугольника (произвольный html)
+//     position: Point - левый верхний угол
+//     cssClass: String - имя css класса
+//     width: Number - ширина в пикселях
+//     height: Number - высота в пикселях
+//     isDraggable: bool - прямоугольник можно перетаскивать
+// }
 //
-function Node(text, left, top){
-	var _text = text,
-        _left = left,
-	    _top = top,
-        _id = counter.newID().toString();
+function Node(params){
+    var _text = params.text || 'Прямоугольник',
+        _position = params.position || new Point(0, 0),
+	    _cssClass = params.cssClass || 'node',
+        _id = counter.newID().toString(),
+        _isDraggable = params || _isDraggable,
+        _name = params.name || 'Прямоугольник ' + _id,
+        _width = params.width || null,
+        _height = params.height || null,
+        _style = params.style || '';
+
 	return {
-		render: function(chart){
-		    chart.append('<div id = "' + _id +'" class = "element node" style="left: ' + _left + 'px; top: ' + _top + 'px;"><div class = "nodeContent">' + _text + '</div></div>');
-		    $('#elementList').append('<div id="elementList' + _id + '" class="elementList">Node: ' + _id + ' ' + _text + '</div>');
+	    render: function (chart) {
+	        _cssClass += _isDraggable ? ' element ' : '';
+	        _style += ' left: ' + _position.left + 'px; top: ' + _position.top + 'px;';
+	        if(_width) {
+	            _style += 'width: ' + _width + 'px;';
+	        }
+	        if (_height) {
+	            _style += ' height: ' + _height + 'px;';
+	        }
+
+	        chart.append('<div id = "' + _id + '" class = "' + _cssClass + '" style="' + _style + '"><div class = "nodeContent">' + _text + '</div></div>');
+		    $('#elementList').prepend('<div id="elementList' + _id + '" class="elementList">' + _name + '</div>');
 		}
 	} 
 }
@@ -47,7 +72,6 @@ function HorizontalSegment(left, top, length) {
     return {
         render: function (chart) {
             chart.append('<div id = "' + _id + '" class = "line horizontalSegment" style="left: ' + _left + 'px; top: ' + _top + 'px; width: ' + _length + 'px;"></div>');
-            $('#elementList').append('<div>HorizontalSegment: ' + _id + '</div>');
         },
         getRegion: function () {
             return _region;
@@ -74,8 +98,6 @@ function VerticalSegment(left, top, length) {
     return {
         render: function (chart) {
             chart.append('<div id = "' + _id + '" class = "line verticalSegment" style="left: ' + _left + 'px; top: ' + _top + 'px; height: ' + _length + 'px;"></div>');
-            $('#elementList').append('<div>VerticalSegment: ' + _id + '</div>');
-
         },
         getRegion: function () {
             return _region;
@@ -93,57 +115,19 @@ function VerticalSegment(left, top, length) {
 // left - число
 // top - число
 //
-function Glif(left, top, image) {
+function Glyph(left, top, image) {
     var _left = left,
         _top = top,
         _id = counter.newID().toString(),
         _image = image;
     return {
         render: function (chart) {
-            chart.append('<div id = "' + _id + '" class = "element glif" style="left: ' + _left + 'px; top: ' + _top + 'px; background-image: url(images/' + _image + ')"></div>');
-            $('#elementList').append('<div id="elementList' + _id + '" class="elementList">Glif: ' +_id + ' ' + _image + '</div>');
+            chart.append('<div id = "' + _id + '" class = "element glyph" style="left: ' + _left + 'px; top: ' + _top + 'px; background-image: url(images/' + _image + ')"></div>');
+            $('#elementList').prepend('<div id="elementList' + _id + '" class="elementList">Glyph: ' +_id + ' ' + _image + '</div>');
         }
     }
 }
-//
-// Соединительные линии
-// begin - Point начало линии
-// segments - [Segment] массив сегментов 
-//
-function Line(params) {
-    var _begin = params.begin || new Point(0,0) ,
-        _segments = params.segments || [],
-        _objectA = params.objectA || null,
-        _getRegion = function () {
-            var region = new Region(_begin, _begin);
-            for (var index in _segments) {
-                region = _segments[index].shift(_begin).getRegion().join(region);
-            }
-            return region;
-        },
-        _id = counter.newID().toString(),
-        _group = new Group(_getRegion());
 
-	return {
-	    render: function (chart) {
-	        var _groupId = _group.render(chart);
-	        $('#elementList').append('<div id="elementList' + _id + '" class="elementList">Line: ' + _id + '</div>');
-	        for (var index in _segments) {
-			    var segment = _segments[index];
-			    segment.render($('#' + _groupId));
-			}
-	    },
-	    getRegion: _getRegion,
-	    toString: function () {
-	        var result = '';
-	        for (var index in _segments) {
-	            var segment = _segments[index];
-	            result += segment.toString();
-	        }
-	        return result;
-	    },
-	}
-}
 //
 // Пустой объект, предназначен для организации других объектов в целое
 //
@@ -153,6 +137,7 @@ function Group(region) {
     return {
         render: function (chart) {
             var _group = chart.append('<div id = "' + _id + '" class = "element group" style = "left: ' + region.left + 'px; top:  ' + region.top + 'px; width: ' + region.width + 'px; height: ' + region.height + 'px;"></div>');
+            $('#elementList').prepend('<div id="elementList' + _id + '" class="elementList">Group: ' + _id + '</div>');
             return _id;
         }
     }

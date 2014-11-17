@@ -5,15 +5,20 @@
 		<title>Chart</title>
 		<script src = "js/jquery-1.11.1.min.js"></script>
 		<script src = "js/units.js"></script>
+        <script src = "js/Line.js"></script>
 		<script src = "js/chart.js"></script>
 		<script src = "js/testChart.js"></script>
         <script src ="js/draganddrop.js"></script>
+        <script src ="js/tools.js"></script>
 		<link rel = "stylesheet" type = "text/css" href="css/chart.css"/> 
 	</head>
 	<body>
 		<div class = "chart">
-            <div id="elementList">
-                <h1>Список с элементами</h1>
+            <div id="elementList"></div>
+            <div id="tools">
+                <div class="button" id="nodeCreate">Узел</div>
+                <div class="button" id="lineCreate">Линия</div>
+                <div class="button" id="glyphCreate">Глиф</div>
             </div>
 		</div>
 	</body>
