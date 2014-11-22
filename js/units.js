@@ -34,7 +34,7 @@ function Point(left, top) {
             chart.append('<div class = "element point" style="left:' + (_left - 4) + 'px; top:'+ (_top - 4) + 'px"></div>');
         },
         toString: function () {
-            return '(' + _left + ',' + top + ')';
+            return 'new Point(' + _left + ',' + top + ')';
         }
     }
 }

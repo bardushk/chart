@@ -22,6 +22,10 @@ var counter = (function () {
     }
 })();
 
+function htmlEntities(string) {
+    return String(string).replace(/</g, '&lt;');
+}
+
 //
 // Прямоугольники
 // параметры: {
@@ -44,7 +48,25 @@ function Node(params){
         _height = params.height || null,
         _style = params.style || '';
 
-	return {
+    return {
+        toString: function () {
+            var result = '';
+            result += 'position: ' + _position.toString();
+            result += ', text: "' + htmlEntities(_text) + '"';
+            result += ', cssClass: "' + _cssClass + '"';
+            result += ', name: "' + _name + '"';
+            if (_width) {
+                result += ', width: ' + _width;
+            }
+            if (_height) {
+                result += ', height: ' + _height;
+            }
+            if (_style) {
+                result += ', style: "' + _style + '"';
+            }
+            return 'new Node({ ' + result + ' })';
+        },
+
 	    render: function (chart) {
 	        _cssClass += _isDraggable ? ' element ' : '';
 	        _style += ' left: ' + _position.left + 'px; top: ' + _position.top + 'px;';
@@ -142,10 +164,23 @@ function Group(region) {
         }
     }
 }
-
+//
+// Рендерим все элементы
+//
 function createElements(chart, elementList) {
 	for(var index in elementList){
 		var node = elementList[index];
 		node.render(chart);
 	}
+}
+//
+// Экспортируем элементы
+//
+function exportElement(elementList) {
+    var result = '';
+    for (var index in elementList) {
+        var node = elementList[index];
+        result += ',' + node;
+    }
+    return '[' + result + ']';
 }

@@ -2,6 +2,7 @@
 /// <reference path="../js/chart.js"/>
 /// <reference path="../js/jquery-1.11.1.min.js"/>
 /// <reference path="../js/line.js"/>
+/// <reference path="../js/export.js"/>
 
 function testLoadjQuery() {
     var _passed = !(typeof $ === 'undefined');
@@ -63,8 +64,8 @@ function testUnitAddPixelAndPercent() {
 //
 function testPointCreate() {
     var _point = new Point(10, 20);
-    var _passed = (_point.toString() === '(10,20)');
-    var _message = 'Создание точки ' + _point.toString();
+    var _passed = (_point.toString() === 'new Point(10,20)');
+    var _message = 'Создание точки: ' + _point.toString();
     return { message: _message, passed: _passed };
 }
 
@@ -157,6 +158,16 @@ function testGenerateSegmnents() {
     
     return { message: message + ' ' + line.toString(), passed: passed };
 }
+//
+// Тестирование экспорта
+//
+function testExpoprt() {
+    var message = 'Тестирование экспорта: ',
+        object = new Node({ text: 'Ново-Суксинское месторорожение (СИКН 237)', position: new Point(0, 0), width: 150, height: 75, style: ';background: none; border: dashed 1px #333;' }),
+        exportString = object.toString(),
+        passed = exportString === 'new Node({ position: new Point(0,0), text: "Ново-Суксинское месторорожение (СИКН 237)", cssClass: "node", name: "Прямоугольник id0017", width: 150, height: 75, style: ";background: none; border: dashed 1px #333;" })';
+    return { message: message + exportString, passed: passed }
+}
 
 $(document).ready(function () {
     log($('.log'), testLoadjQuery());
@@ -172,6 +183,7 @@ $(document).ready(function () {
     log($('.log'), testLineGetRegion());
     log($('.log'), testCounter());
     log($('.log'), testGenerateSegmnents());
+    log($('.log'), testExpoprt());
 });
 
 function log(log, test) {

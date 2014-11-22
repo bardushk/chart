@@ -9,12 +9,9 @@ $(document).ready(function () {
         var node = new Node("New node", 10, 10);
         node.render(chart);
     });
-    $('#lineCreate').click(function () {
-        var line = new Line({ begin: new Point(0, 0), end: new Point(100, 100) });
-        line.render(chart);
-    });
-    $('#glyphCreate').click(function () {
-        var glyph = new Glyph(10, 10, 'left.png');
-        glyph.render(chart);
+    $('#exportButton').click(function () {
+        console.log('#export', elementList);
+
+        $('#export').html(exportElement(elementList));
     });
 });

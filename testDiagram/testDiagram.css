@@ -1,0 +1,19 @@
+﻿body {
+    font-family: Arial;
+    color: #666;
+    font-size: 13px;
+}
+h1 {
+    font-weight: normal;
+}
+.test{
+    margin: 3px;
+    padding: 3px;
+    padding-left: 1em;
+}
+.fail {
+    border-left: solid 1em #cd0000;
+}
+.ok {
+    border-left: solid 1em #336633;
+}

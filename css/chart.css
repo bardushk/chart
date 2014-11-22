@@ -90,3 +90,15 @@ h1 {
     cursor: pointer;
     background: #fff;
 }
+#export {
+    position: absolute;
+    bottom: 10px;
+    height: 300px;
+    left: 10px;
+    right: 230px;
+    border: solid 1px #666;
+    overflow: auto;
+    background: #fff;
+    z-index: 9000;
+    padding: 9px;
+}
